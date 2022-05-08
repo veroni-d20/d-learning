@@ -51,12 +51,18 @@ export default function Upload() {
     await file.saveIPFS();
 
     console.log(file.ipfs());
+    return file.ipfs();
   };
 
   //Upload function
   const upload = async () => {
     const imageUrl = await uploadFile();
-    await uploadMetadata(imageUrl);
+    const metaUrl = await uploadMetadata(imageUrl);
+    // Save file reference to Moralis
+    const jobApplication = new Moralis.Object("CourseDetail");
+    jobApplication.set("fileUrl", imageUrl);
+    jobApplication.set("metaUrl", metaUrl);
+    await jobApplication.save();
   };
 
   return (
