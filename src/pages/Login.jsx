@@ -8,9 +8,9 @@ import Box from '@mui/material/Box';
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
-import { TextField } from "@mui/material";
 import { useMoralis } from "react-moralis";
 import { useNavigate } from "react-router-dom";
+// import {Img} from "/images/bglogin.jpg";
 
 function Copyright(props) {
   return (
@@ -90,7 +90,16 @@ export default function Login() {
                 fullWidth
                 variant="contained"
                 onClick={login}
-                sx={{ mt: 3, mb: 2 }}
+                sx={{mt: 3, mb: 2,
+                    borderRadius: "30px",
+                    backgroundColor: "#3b82f6",
+                    maxHeight: "50px",
+                    minHeight: "30px",
+                    "&:hover": {
+                      backgroundColor: "#fff",
+                      color: "#3b82f6",
+                    },
+                  }}
               >
                 Sign In With Metamask
               </Button>

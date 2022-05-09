@@ -8,6 +8,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+      <Route path="/" element={<Login />} />
         <Route path="/upload" element={<Upload />} />
         <Route path="/getCourses" element={<Retrieve />} />
         <Route path="/myCourses" element={<MyCourses />} />
