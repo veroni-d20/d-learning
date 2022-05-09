@@ -3,6 +3,7 @@ import { TextField, Button } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import TextareaAutosize from "@mui/base/TextareaAutosize";
 import { useMoralis } from "react-moralis";
+import { useNavigate } from "react-router-dom";
 
 const Input = styled("input")({
   display: "none",
@@ -14,6 +15,7 @@ export default function Upload() {
   const [courseDescription, setCourseDescription] = useState("");
   const [courseDuration, setCourseDuration] = useState("");
   const { Moralis, authenticate, isAuthenticated } = useMoralis();
+  let navigate = useNavigate();
 
   //Authentication
   const login = async () => {
@@ -26,6 +28,11 @@ export default function Upload() {
           console.log(error);
         });
     }
+  };
+
+  const logout = async () => {
+    Moralis.User.logOut();
+    console.log("logged out");
   };
 
   //Uploading the course
@@ -70,6 +77,14 @@ export default function Upload() {
       <h1 className="text-center mt-2">Upload</h1>
       <Button variant="contained" component="span" onClick={login}>
         Login
+      </Button>
+      <Button
+        variant="contained"
+        component="span"
+        onClick={logout}
+        sx={{ margin: 2 }}
+      >
+        Logout
       </Button>
       <div className="my-2">
         <TextField
@@ -127,6 +142,15 @@ export default function Upload() {
           }}
         >
           Upload
+        </Button>
+        <Button
+          variant="contained"
+          component="span"
+          onClick={(e) => {
+            navigate("/getCourses");
+          }}
+        >
+          GET COURSES
         </Button>
       </div>
     </div>
