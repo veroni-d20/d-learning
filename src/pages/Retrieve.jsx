@@ -117,7 +117,7 @@ export default function Retrieve() {
                         handleClickOpen();
                       }}
                     >
-                      Go to course
+                      Enroll Course
                     </Button>
                   </CardActions>
                 </Card>
