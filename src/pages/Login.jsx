@@ -83,7 +83,12 @@ export default function Login() {
               alignItems: "center",
             }}
           >
-            {/* <Avatar sx={{ m: 1, bgcolor: "secondary.main" }}></Avatar> */}
+            <b>
+              <Typography component="h1" variant="h4">
+                D LEARNING
+              </Typography>
+            </b>
+            <br />
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
