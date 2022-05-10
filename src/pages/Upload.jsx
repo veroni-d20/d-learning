@@ -10,6 +10,7 @@ import CardActions from "@mui/material/CardActions";
 import { CardActionArea } from "@mui/material";
 import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
+import bg from "../images/bg.png";
 
 const Input = styled("input")({
   display: "none",
@@ -80,146 +81,122 @@ export default function Upload() {
   };
 
   return (
-    <section className="vh-100">
-      <div className="container my-4">
-        <div className="d-flex justify-content-end">
-          <Button
-            onClick={(e) => {
-              navigate("/getCourses");
-            }}
-          >
-            Get Courses
-          </Button>
-          <Typography component="h2" variant="h5">
-            |
-          </Typography>
-          <Button onClick={logout}>Logout</Button>
-        </div>
+    <section
+      className="d-flex flex-column align-items-center justify-content-center vh-100"
+      style={{
+        background: `url("${bg}")no-repeat center/cover`,
+      }}
+    >
+      <div
+        className="bg-white align-items-center justify-content-center h-75"
+        style={{
+          minHeight: "85vh",
+          width: "85%",
+          borderRadius: "10px",
+          boxShadow:
+            "0 8px 16px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.16)",
+        }}
+      >
+        <div className="container my-4">
+          <div className="d-flex justify-content-end">
+            <Button
+              onClick={(e) => {
+                navigate("/getCourses");
+              }}
+            >
+              Get Courses
+            </Button>
+            <Typography component="h2" variant="h5">
+              |
+            </Typography>
+            <Button onClick={logout}>Logout</Button>
+          </div>
 
-        <div className="white-box d-flex bg-body flex-column mr-3 p-3 justify-content-between rounded-4">
-          <Card
-            elevation={2}
-            sx={{ textAlign: "center", borderRadius: "30px" }}
-          >
-            <CardActionArea>
-              <CardContent>
-                <div className="">
-                  <Box
-                    component="h1"
-                    sx={{ letterSpacing: 5, m: 1, color: "#002984" }}
-                  >
-                    Upload Course
-                  </Box>
+          <div className="text-center">
+            <b>
+              <h3>Upload Course</h3>
+            </b>
+            <Typography component="h1" variant="h6">
+              Here's the right way to teach!
+            </Typography>
+          </div>
+
+          <div className="d-flex justify-content-center flex-column container">
+            <div className="d-flex justify-content-center p-2">
+              <Box
+                sx={{
+                  "& > :not(style)": { m: 1 },
+                  letterSpacing: 15,
+                  m: 1,
+                }}
+              >
+                <div className="my-1 py-2 ">
+                  <TextField
+                    id="course-name"
+                    label="Course name"
+                    variant="outlined"
+                    fullWidth
+                    onChange={(e) => setCourseName(e.target.value)}
+                  />
                 </div>
-                <div className="d-flex py-3 justify-content-center">
-                  <Typography component="h2" variant="h5">
-                    Here's the right way to teach!
-                  </Typography>
+                <div className="my-1 py-2">
+                  <TextField
+                    id="outlined-multiline-static"
+                    label="Course Description"
+                    multiline
+                    rows={4}
+                    placeholder="Course description"
+                    onChange={(e) => {
+                      setCourseDescription(e.target.value);
+                      console.log(e.target.value);
+                    }}
+                    style={{
+                      width: "75vw",
+                    }}
+                  />
                 </div>
-                <div className="d-flex justify-content-center flex-column container">
-                  <div className="d-flex justify-content-center p-2">
-                    <Box
-                      sx={{
-                        "& > :not(style)": { m: 1 },
-                        letterSpacing: 15,
-                        m: 1,
-                      }}
-                    >
-                      <div className="my-2 py-2 ">
-                        <TextField
-                          id="course-name"
-                          label="Course name"
-                          variant="outlined"
-                          fullWidth
-                          onChange={(e) => setCourseName(e.target.value)}
-                        />
-                      </div>
-                      <div className="mb-2 my-2 py-2">
-                        <TextareaAutosize
-                          minRows={3}
-                          placeholder="Course description"
-                          style={{
-                            width: "75vw",
-                          }}
-                          variant="outlined"
-                          onChange={(e) => {
-                            setCourseDescription(e.target.value);
-                            console.log(e.target.value);
-                          }}
-                        />
-                      </div>
-                      <div className="my-2 mb-2 py-2">
-                        <TextField
-                          id="course-duration"
-                          label="Course duration"
-                          variant="outlined"
-                          fullWidth
-                          onChange={(e) => {
-                            setCourseDuration(e.target.value);
-                            console.log(e.target.value);
-                          }}
-                        />
-                      </div>
-                    </Box>
-                  </div>
-                  <div
-                    className="d-flex justify-content-center align-items-center p-2"
-                    sx={{ flexDirection: "row" }}
-                  >
-                    <Box sx={{ "& > :not(style)": { m: 1 } }}>
-                      <label htmlFor="contained-button-file">
-                        <Input
-                          accept="image/*"
-                          id="contained-button-file"
-                          multiple
-                          type="file"
-                          onChange={(event) =>
-                            setInputFile(event.target.files[0])
-                          }
-                        />
-                        <Button
-                          sx={{
-                            borderRadius: "30px",
-                            backgroundColor: "#3b82f6",
-                            maxHeight: "50px",
-                            minHeight: "30px",
-                            "&:hover": {
-                              backgroundColor: "#fff",
-                              color: "#3b82f6",
-                            },
-                          }}
-                          variant="contained"
-                          component="span"
-                        >
-                          Attach file
-                        </Button>
-                      </label>
-                      <Button
-                        sx={{
-                          borderRadius: "30px",
-                          backgroundColor: "#3b82f6",
-                          maxHeight: "50px",
-                          minHeight: "30px",
-                          "&:hover": {
-                            backgroundColor: "#fff",
-                            color: "#3b82f6",
-                          },
-                        }}
-                        variant="contained"
-                        component="span"
-                        onClick={(e) => {
-                          upload();
-                        }}
-                      >
-                        Upload
-                      </Button>
-                    </Box>
-                  </div>
-                </div>
-                <div className="d-flex align-items-center justify-content-center mt-2 p-2"></div>
-              </CardContent>
-            </CardActionArea>
-          </Card>
+
+                <TextField
+                  id="course-duration"
+                  label="Course duration"
+                  variant="outlined"
+                  fullWidth
+                  onChange={(e) => {
+                    setCourseDuration(e.target.value);
+                    console.log(e.target.value);
+                  }}
+                />
+              </Box>
+            </div>
+            <div
+              className="d-flex justify-content-center align-items-center p-2"
+              sx={{ flexDirection: "row" }}
+            >
+              <Box sx={{ "& > :not(style)": { m: 1 } }}>
+                <label htmlFor="contained-button-file">
+                  <Input
+                    accept="image/*"
+                    id="contained-button-file"
+                    multiple
+                    type="file"
+                    onChange={(event) => setInputFile(event.target.files[0])}
+                  />
+                  <Button variant="contained" component="span">
+                    Attach file
+                  </Button>
+                </label>
+                <Button
+                  variant="contained"
+                  component="span"
+                  onClick={(e) => {
+                    upload();
+                  }}
+                >
+                  Upload
+                </Button>
+              </Box>
+            </div>
+          </div>
         </div>
       </div>
     </section>

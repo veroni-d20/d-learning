@@ -101,14 +101,6 @@ export default function Login() {
                 sx={{
                   mt: 3,
                   mb: 2,
-                  borderRadius: "15px",
-                  backgroundColor: "#3b82f6",
-                  maxHeight: "50px",
-                  minHeight: "30px",
-                  "&:hover": {
-                    backgroundColor: "#fff",
-                    color: "#3b82f6",
-                  },
                 }}
               >
                 Sign In With Metamask
