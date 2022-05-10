@@ -39,6 +39,7 @@ export default function Upload() {
   const logout = async () => {
     Moralis.User.logOut();
     console.log("logged out");
+    navigate("/");
   };
 
   //Uploading the course
@@ -81,6 +82,20 @@ export default function Upload() {
   return (
     <section className="vh-100">
       <div className="container my-4">
+        <div className="d-flex justify-content-end">
+          <Button
+            onClick={(e) => {
+              navigate("/getCourses");
+            }}
+          >
+            Get Courses
+          </Button>
+          <Typography component="h2" variant="h5">
+            |
+          </Typography>
+          <Button onClick={logout}>Logout</Button>
+        </div>
+
         <div className="white-box d-flex bg-body flex-column mr-3 p-3 justify-content-between rounded-4">
           <Card
             elevation={2}
@@ -110,7 +125,7 @@ export default function Upload() {
                         m: 1,
                       }}
                     >
-                      <div className="my-2 py-3 ">
+                      <div className="my-2 py-2 ">
                         <TextField
                           id="course-name"
                           label="Course name"
@@ -119,14 +134,14 @@ export default function Upload() {
                           onChange={(e) => setCourseName(e.target.value)}
                         />
                       </div>
-                      <div className="mb-2 my-2">
+                      <div className="mb-2 my-2 py-2">
                         <TextareaAutosize
-                          aria-label="minimum height"
                           minRows={3}
-                          placeholder="Minimum 3 rows"
+                          placeholder="Course description"
                           style={{
                             width: "75vw",
                           }}
+                          variant="outlined"
                           onChange={(e) => {
                             setCourseDescription(e.target.value);
                             console.log(e.target.value);
@@ -147,35 +162,21 @@ export default function Upload() {
                       </div>
                     </Box>
                   </div>
-                  <div className="d-flex justify-content-center align-items-center p-2" sx={{flexDirection:"row"}}>
+                  <div
+                    className="d-flex justify-content-center align-items-center p-2"
+                    sx={{ flexDirection: "row" }}
+                  >
                     <Box sx={{ "& > :not(style)": { m: 1 } }}>
-                        <label htmlFor="contained-button-file">
-                          <Input
-                            accept="image/*"
-                            id="contained-button-file"
-                            multiple
-                            type="file"
-                            onChange={(event) =>
-                              setInputFile(event.target.files[0])
-                            }
-                          />
-                          <Button
-                            sx={{
-                              borderRadius: "30px",
-                              backgroundColor: "#3b82f6",
-                              maxHeight: "50px",
-                              minHeight: "30px",
-                              "&:hover": {
-                                backgroundColor: "#fff",
-                                color: "#3b82f6",
-                              },
-                            }}
-                            variant="contained"
-                            component="span"
-                          >
-                            Attach file
-                          </Button>
-                        </label>
+                      <label htmlFor="contained-button-file">
+                        <Input
+                          accept="image/*"
+                          id="contained-button-file"
+                          multiple
+                          type="file"
+                          onChange={(event) =>
+                            setInputFile(event.target.files[0])
+                          }
+                        />
                         <Button
                           sx={{
                             borderRadius: "30px",
@@ -189,12 +190,29 @@ export default function Upload() {
                           }}
                           variant="contained"
                           component="span"
-                          onClick={(e) => {
-                            upload();
-                          }}
                         >
-                          Upload
+                          Attach file
                         </Button>
+                      </label>
+                      <Button
+                        sx={{
+                          borderRadius: "30px",
+                          backgroundColor: "#3b82f6",
+                          maxHeight: "50px",
+                          minHeight: "30px",
+                          "&:hover": {
+                            backgroundColor: "#fff",
+                            color: "#3b82f6",
+                          },
+                        }}
+                        variant="contained"
+                        component="span"
+                        onClick={(e) => {
+                          upload();
+                        }}
+                      >
+                        Upload
+                      </Button>
                     </Box>
                   </div>
                 </div>
@@ -202,46 +220,6 @@ export default function Upload() {
               </CardContent>
             </CardActionArea>
           </Card>
-        </div>
-        <div className="mt-2 justify-content-end">
-          <Button
-            variant="contained"
-            sx={{
-              borderRadius: "30px",
-              backgroundColor: "#3b82f6",
-              maxHeight: "50px",
-              minHeight: "30px",
-              "&:hover": {
-                backgroundColor: "#fff",
-                color: "#3b82f6",
-              },
-            }}
-            component="span"
-            onClick={(e) => {
-              navigate("/getCourses");
-            }}
-          >
-            GET COURSES
-          </Button>
-        </div>
-        <div className="mt-2 justify-content-start">
-          <Button
-            variant="contained"
-            component="span"
-            onClick={logout}
-            sx={{
-              borderRadius: "30px",
-              backgroundColor: "#3b82f6",
-              maxHeight: "50px",
-              minHeight: "30px",
-              "&:hover": {
-                backgroundColor: "#fff",
-                color: "#3b82f6",
-              },
-            }}
-          >
-            Logout
-          </Button>
         </div>
       </div>
     </section>
