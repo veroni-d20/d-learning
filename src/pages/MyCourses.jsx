@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
-import { Card, CardContent } from "@mui/material";
+import { Card, CardActions, CardContent, Button } from "@mui/material";
 import Typography from "@mui/material/Typography";
 import data from "../data/courses.json";
+import { useNavigate } from "react-router-dom";
 
 export default function MyCourses() {
+  let navigate = useNavigate();
   return (
     <div
       className="vh-100 px-5"
@@ -29,6 +31,17 @@ export default function MyCourses() {
                 Learn how to use agile methods to develop software
               </Typography>
             </CardContent>
+            <CardActions>
+              <Button
+                size="small"
+                color="primary"
+                onClick={() => {
+                  navigate("/1");
+                }}
+              >
+                Go to course
+              </Button>
+            </CardActions>
           </Card>
         </div>
       </div>
