@@ -10,9 +10,16 @@ import Typography from "@mui/material/Typography";
 import data from "../data/courses.json";
 import { useNavigate } from "react-router-dom";
 import bg from "../images/bg.png";
+import { useMoralis } from "react-moralis";
 
 export default function MyCourses() {
   let navigate = useNavigate();
+  const { Moralis } = useMoralis();
+  const logout = async () => {
+    Moralis.User.logOut();
+    console.log("logged out");
+    navigate("/");
+  };
   return (
     <section
       className="d-flex flex-column align-items-center justify-content-center vh-100"
@@ -30,6 +37,19 @@ export default function MyCourses() {
             "0 8px 16px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.16)",
         }}
       >
+        <div className="d-flex justify-content-end ">
+          <Button
+            onClick={(e) => {
+              navigate("/getCourses");
+            }}
+          >
+            All Courses
+          </Button>
+          <Typography component="h2" variant="h5">
+            |
+          </Typography>
+          <Button onClick={logout}>Logout</Button>
+        </div>
         <h3 className="text-center">My Courses</h3>
         <div className="row">
           <div className="col-md-6 col-lg-4 mb-3">
