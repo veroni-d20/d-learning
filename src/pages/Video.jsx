@@ -4,6 +4,7 @@ import { useMoralis } from "react-moralis";
 import { useNavigate } from "react-router-dom";
 import { Button, Typography } from "@mui/material";
 import bg from "../images/bg.png";
+import video from "../images/agile.mp4";
 
 export default function Video() {
   const { Moralis } = useMoralis();
@@ -49,20 +50,27 @@ export default function Video() {
             <h3 className="m-0">Agile Methodology</h3>
             <hr></hr>
             <ReactPlayer
-              url="https://www.youtube.com/watch?v=zsjvFFKOm3c"
+              url={video}
               muted={false}
               volume={true}
               playing={false}
               controls={true}
               width="100%"
             />
-            <div className="d-flex justify-content-between pt-3">
-              <h5 className="m-0">
-                Learn how to use agile methods to develop software
-              </h5>
-              <p className="m-0">
-                <b>4</b> Weeks
-              </p>
+            <div className="d-flex row justify-content-between pt-3">
+              <div className="col-md-10">
+                <h5 className="m-0">
+                  This course will explore the history, approach, and philosophy
+                  of Agile project management, including the Scrum framework.
+                  You will learn how to differentiate and blend Agile and other
+                  project management approaches.
+                </h5>
+              </div>
+              <div className="col-md-2">
+                <p className="m-0 text-end">
+                  <b>4</b> Weeks
+                </p>
+              </div>
             </div>
           </div>
         </div>
