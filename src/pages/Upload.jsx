@@ -77,7 +77,9 @@ export default function Upload() {
     const jobApplication = new Moralis.Object("CourseDetail");
     jobApplication.set("fileUrl", imageUrl);
     jobApplication.set("metaUrl", metaUrl);
-    await jobApplication.save();
+    await jobApplication.save().then(() => {
+      navigate("/getCourses");
+    });
   };
 
   return (
@@ -148,7 +150,6 @@ export default function Upload() {
                     placeholder="Course description"
                     onChange={(e) => {
                       setCourseDescription(e.target.value);
-                      console.log(e.target.value);
                     }}
                     style={{
                       width: "75vw",
@@ -175,7 +176,7 @@ export default function Upload() {
               <Box sx={{ "& > :not(style)": { m: 1 } }}>
                 <label htmlFor="contained-button-file">
                   <Input
-                    accept="image/*"
+                    accept="video/*"
                     id="contained-button-file"
                     multiple
                     type="file"
