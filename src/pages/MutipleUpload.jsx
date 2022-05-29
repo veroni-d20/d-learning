@@ -1,0 +1,174 @@
+import { useState } from "react";
+import { Button, Typography, TextField } from "@mui/material";
+import { useNavigate, useLocation } from "react-router-dom";
+import { useMoralis } from "react-moralis";
+import { styled } from "@mui/material/styles";
+
+const Input = styled("input")({
+  display: "none",
+});
+
+export default function MutipleUpload() {
+  let navigate = useNavigate();
+  const { state } = useLocation();
+  const { courseId } = state;
+  const [inputFile, setInputFile] = useState(null);
+  const [imageFile, setImageFile] = useState(null);
+  const [lessonName, setLessonName] = useState("");
+  const [courseDescription, setCourseDescription] = useState("");
+  const [courseDuration, setCourseDuration] = useState("");
+  const { Moralis } = useMoralis();
+
+  const logout = async () => {
+    Moralis.User.logOut();
+    console.log("logged out");
+    navigate("/");
+  };
+
+  //Uploading the course
+  const uploadFile = async () => {
+    console.log(inputFile);
+    console.log(imageFile);
+    const file = new Moralis.File(inputFile.name, inputFile);
+    const image = new Moralis.File(imageFile.name, imageFile);
+    await file.saveIPFS();
+    await image.saveIPFS();
+    console.log(file.ipfs(), file.hash());
+    return { fileUrl: file.ipfs(), imageUrl: image.ipfs() };
+  };
+
+  //Uploading the metadata
+  const uploadMetadata = async (fileUrl, imageUrl) => {
+    const object = {
+      name: lessonName,
+      description: courseDescription,
+      duration: courseDuration,
+      file: fileUrl,
+      image: imageUrl,
+    };
+
+    const file = new Moralis.File("file.json", {
+      base64: btoa(JSON.stringify(object)),
+    });
+    await file.saveIPFS();
+
+    console.log(file.ipfs());
+    return file.ipfs();
+  };
+
+  //Upload function
+  const upload = async () => {
+    const { fileUrl, imageUrl } = await uploadFile();
+    const metaUrl = await uploadMetadata(fileUrl, imageUrl);
+    // Save file reference to Moralis
+    const jobApplication = new Moralis.Object("LessonDetail");
+    jobApplication.set("imageUrl", imageUrl);
+    jobApplication.set("fileUrl", fileUrl);
+    jobApplication.set("metaUrl", metaUrl);
+    jobApplication.set("courseId", courseId);
+    await jobApplication.save().then(() => {
+      navigate("/getCourses");
+    });
+  };
+
+  return (
+    <section className="d-flex flex-column align-items-center justify-content-center vh-100">
+      <div
+        className="bg-white align-items-center justify-content-center h-75  p-4"
+        style={{
+          minHeight: "85vh",
+          width: "85%",
+          borderRadius: "10px",
+          boxShadow:
+            "0 8px 16px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.16)",
+        }}
+      >
+        <div className="d-flex justify-content-end ">
+          <Button
+            onClick={(e) => {
+              navigate("/getCourses");
+            }}
+          >
+            All Courses
+          </Button>
+          <Typography component="h2" variant="h5">
+            |
+          </Typography>
+          <Button onClick={logout}>Logout</Button>
+        </div>
+        <div className="mb-2">
+          <TextField
+            id="lesson-name"
+            label="Lesson Name"
+            variant="outlined"
+            fullWidth
+            onChange={(e) => {
+              setLessonName(e.target.value);
+            }}
+          />
+        </div>
+        <div className="mb-2">
+          <TextField
+            id="duration"
+            label="Duration"
+            variant="outlined"
+            fullWidth
+            onChange={(e) => {
+              setCourseDuration(e.target.value);
+            }}
+          />
+        </div>
+        <div className="mb-2">
+          <TextField
+            id="description"
+            label="Description"
+            variant="outlined"
+            fullWidth
+            onChange={(e) => {
+              setCourseDescription(e.target.value);
+            }}
+          />
+        </div>
+        <div>
+          <label htmlFor="contained-button-file">
+            <Input
+              accept="video/*"
+              id="contained-button-file"
+              multiple
+              type="file"
+              onChange={(e) => {
+                setInputFile(e.target.files[0]);
+                console.log(e.target.files[0]);
+              }}
+            />
+            <Button variant="contained" component="span" sx={{ margin: "2px" }}>
+              Upload Video
+            </Button>
+          </label>
+          <label htmlFor="contained-button-image">
+            <Input
+              accept="image/*"
+              id="contained-button-image"
+              multiple
+              type="file"
+              onChange={(event) => {
+                setImageFile(event.target.files[0]);
+                console.log(event.target.files[0]);
+              }}
+            />
+            <Button variant="contained" component="span">
+              Upload Banner Image
+            </Button>
+          </label>
+          <Button
+            onClick={(e) => {
+              upload();
+            }}
+          >
+            Submit
+          </Button>
+        </div>
+      </div>
+    </section>
+  );
+}

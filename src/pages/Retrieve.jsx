@@ -16,6 +16,7 @@ import bg from "../images/bg.png";
 export default function Retrieve() {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [data, setData] = useState([]);
   let navigate = useNavigate();
 
   const logout = async () => {
@@ -46,6 +47,7 @@ export default function Retrieve() {
     const query = new Moralis.Query("CourseDetail");
     query.find().then((results) => {
       results.map((result) => {
+        // console.log(result.id);
         query.equalTo("objectId", `${result.id}`);
         query.find().then(function ([application]) {
           const ipfs = application.get("fileUrl");
@@ -60,14 +62,13 @@ export default function Retrieve() {
               description: data.description,
               duration: data.duration,
             };
-            Data.push(courseData);
+            setData([courseData]);
+            setLoading(false);
             // console.log(Data);
           });
         });
       });
-      setLoading(false);
     });
-    // console.log(Data);
   }
 
   return (
@@ -101,13 +102,14 @@ export default function Retrieve() {
           <Button onClick={logout}>Logout</Button>
         </div>
         <h3 className="text-center pb-2">Courses</h3>
+
         {loading ? (
           <h4>Loading</h4>
         ) : (
           <>
             <div className="row">
-              {dummyData.map((e, index) => (
-                <div className="col-md-6 col-lg-4 mb-3" key={index}>
+              {data.map((e, index) => (
+                <div className="col-md-6 col-lg-4 mb-3" key={e.objectId}>
                   <Card
                     sx={{
                       maxWidth: 450,
@@ -143,7 +145,11 @@ export default function Retrieve() {
                         size="small"
                         color="primary"
                         onClick={() => {
-                          handleClickOpen();
+                          navigate("/addLessons", {
+                            state: {
+                              courseId: e.objectId,
+                            },
+                          });
                         }}
                       >
                         Enroll Course
@@ -155,6 +161,7 @@ export default function Retrieve() {
             </div>
           </>
         )}
+
         <Dialog
           open={open}
           onClose={handleClose}

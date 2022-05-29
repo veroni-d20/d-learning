@@ -4,6 +4,7 @@ import Retrieve from "./pages/Retrieve";
 import Upload from "./pages/Upload";
 import Login from "./pages/Login";
 import Video from "./pages/Video";
+import MutipleUpload from "./pages/MutipleUpload";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
         <Route path="/upload" element={<Upload />} />
         <Route path="/getCourses" element={<Retrieve />} />
         <Route path="/myCourses" element={<MyCourses />} />
+        <Route path="/addLessons" element={<MutipleUpload />} />
         <Route path="/1" element={<Video />} />
       </Routes>
     </BrowserRouter>
