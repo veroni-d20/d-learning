@@ -77,9 +77,7 @@ export default function Upload() {
     const jobApplication = new Moralis.Object("CourseDetail");
     jobApplication.set("fileUrl", imageUrl);
     jobApplication.set("metaUrl", metaUrl);
-    await jobApplication.save().then(() => {
-      navigate("/getCourses");
-    });
+    await jobApplication.save();
   };
 
   return (
@@ -87,6 +85,8 @@ export default function Upload() {
       className="d-flex flex-column align-items-center justify-content-center vh-100"
       style={{
         background: `url("${bg}")no-repeat center/cover`,
+          // minHeight: "200vh",
+          // width: "100%",
       }}
     >
       <div
@@ -150,6 +150,7 @@ export default function Upload() {
                     placeholder="Course description"
                     onChange={(e) => {
                       setCourseDescription(e.target.value);
+                      console.log(e.target.value);
                     }}
                     style={{
                       width: "75vw",
@@ -176,19 +177,40 @@ export default function Upload() {
               <Box sx={{ "& > :not(style)": { m: 1 } }}>
                 <label htmlFor="contained-button-file">
                   <Input
-                    accept="video/*"
+                    accept="image/*"
                     id="contained-button-file"
                     multiple
                     type="file"
                     onChange={(event) => setInputFile(event.target.files[0])}
                   />
-                  <Button variant="contained" component="span">
+                  <Button variant="contained"
+                  sx={{
+                    borderRadius: "30px",
+                    backgroundColor: "#3b82f6",
+                    maxHeight: "50px",
+                    minHeight: "30px",
+                    "&:hover": {
+                      backgroundColor: "#fff",
+                      color: "#3b82f6",
+                    },
+                  }}
+                  component="span">
                     Attach file
                   </Button>
                 </label>
                 <Button
                   variant="contained"
                   component="span"
+                  sx={{
+                    borderRadius: "30px",
+                    backgroundColor: "#3b82f6",
+                    maxHeight: "50px",
+                    minHeight: "30px",
+                    "&:hover": {
+                      backgroundColor: "#fff",
+                      color: "#3b82f6",
+                    },
+                  }}
                   onClick={(e) => {
                     upload();
                   }}
