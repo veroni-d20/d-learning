@@ -99,6 +99,16 @@ export default function Retrieve() {
           <Typography component="h2" variant="h5">
             |
           </Typography>
+          <Button
+            onClick={(e) => {
+              navigate("/score");
+            }}
+          >
+            Score
+          </Button>
+          <Typography component="h2" variant="h5">
+            |
+          </Typography>
           <Button onClick={logout}>Logout</Button>
         </div>
         <h3 className="text-center pb-2">Courses</h3>

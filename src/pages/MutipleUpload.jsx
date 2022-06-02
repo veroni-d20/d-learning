@@ -6,7 +6,6 @@ import { styled } from "@mui/material/styles";
 import bg from "../images/bg.png";
 import Box from "@mui/material/Box";
 
-
 const Input = styled("input")({
   display: "none",
 });
@@ -76,143 +75,152 @@ export default function MutipleUpload() {
 
   return (
     <section
-    className="d-flex flex-column align-items-center justify-content-center vh-100"
-    style={{
-      background: `url("${bg}")no-repeat center/cover`,
-    }}
-  >
-    <div
-      className="bg-white align-items-center justify-content-center h-75"
+      className="d-flex flex-column align-items-center justify-content-center vh-100"
       style={{
-        minHeight: "85vh",
-        width: "85%",
-        borderRadius: "10px",
-        boxShadow:
-          "0 8px 16px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.16)",
+        background: `url("${bg}")no-repeat center/cover`,
       }}
     >
-      <div className="container my-4">
-        <div className="d-flex justify-content-end">
-          <Button
-            onClick={(e) => {
-              navigate("/getCourses");
-            }}
-          >
-            Get Courses
-          </Button>
-          <Typography component="h2" variant="h5">
-            |
-          </Typography>
-          <Button onClick={logout}>Logout</Button>
-        </div>
-
-        <div className="text-center">
-          <b>
-            <h3>Add Lessons</h3>
-          </b>
-          <Typography component="h1" variant="h6">
-            Add your lessons & topics here!
-          </Typography>
-        </div>
-
-        <div className="d-flex justify-content-center flex-column container">
-          <div className="d-flex justify-content-center p-2">
-            <Box
-              sx={{
-                "& > :not(style)": { m: 1 },
-                letterSpacing: 15,
-                m: 1,
+      <div
+        className="bg-white align-items-center justify-content-center h-75"
+        style={{
+          minHeight: "85vh",
+          width: "85%",
+          borderRadius: "10px",
+          boxShadow:
+            "0 8px 16px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.16)",
+        }}
+      >
+        <div className="container my-4">
+          <div className="d-flex justify-content-end">
+            <Button
+              onClick={(e) => {
+                navigate("/getCourses");
               }}
             >
-              <div className="my-1 py-2 ">
-              <TextField
-          id="lesson-name"
-          label="Lesson Name"
-          variant="outlined"
-          fullWidth
-          onChange={(e) => {
-            setLessonName(e.target.value);
-          }}
-        />
-              </div>
-              <div className="my-1 py-2">
-                <TextField
-                  id="outlined-multiline-static"
-                  label="Description"
-                  multiline
-                  rows={4}
-                  placeholder="description"
-                  onChange={(e) => {
-                    setCourseDescription(e.target.value);
-                  }}
-                  style={{
-                    width: "75vw",
-                  }}
-                />
-              </div>
-
-              <TextField
-                 id="duration"
-                 label="Duration"
-                 variant="outlined"
-                 fullWidth
-                 onChange={(e) => {
-                   setCourseDuration(e.target.value);
-                 }}
-              />
-            </Box>
+              Get Courses
+            </Button>
+            <Typography component="h2" variant="h5">
+              |
+            </Typography>
+            <Button
+              onClick={(e) => {
+                navigate("/score");
+              }}
+            >
+              Score
+            </Button>
+            <Typography component="h2" variant="h5">
+              |
+            </Typography>
+            <Button onClick={logout}>Logout</Button>
           </div>
-          <div
-            className="d-flex justify-content-center align-items-center p-2"
-            sx={{ flexDirection: "row" }}
-          >
-            <Box sx={{ "& > :not(style)": { m: 1 } }}>
-              <label htmlFor="contained-button-file">
-                <Input
-                  accept="video/*"
-                  id="contained-button-file"
-                  multiple
-                  type="file"
-                  onChange={(e) => {
-                    setInputFile(e.target.files[0]);
-                    console.log(e.target.files[0]);
-                  }}
-                />
-                <Button variant="contained" component="span">
-                  Attach file
-                </Button>
-              </label>
-              <label htmlFor="contained-button-file">
-                <Input
-                  accept="video/*"
-                  id="contained-button-file"
-                  multiple
-                  type="file"
-                  onChange={(event) => {
-                    setImageFile(event.target.files[0]);
-                    console.log(event.target.files[0]);
-                  }}
-                />
-                <Button variant="contained" component="span">
-            Upload Banner Image
-                  
-                </Button>
-              </label>
-              <Button
-                variant="contained"
-                component="span"
-                onClick={(e) => {
-                  upload();
+
+          <div className="text-center">
+            <b>
+              <h3>Add Lessons</h3>
+            </b>
+            <Typography component="h1" variant="h6">
+              Add your lessons & topics here!
+            </Typography>
+          </div>
+
+          <div className="d-flex justify-content-center flex-column container">
+            <div className="d-flex justify-content-center p-2">
+              <Box
+                sx={{
+                  "& > :not(style)": { m: 1 },
+                  letterSpacing: 15,
+                  m: 1,
                 }}
               >
-                Submit
-              </Button>
-            </Box>
+                <div className="my-1 py-2 ">
+                  <TextField
+                    id="lesson-name"
+                    label="Lesson Name"
+                    variant="outlined"
+                    fullWidth
+                    onChange={(e) => {
+                      setLessonName(e.target.value);
+                    }}
+                  />
+                </div>
+                <div className="my-1 py-2">
+                  <TextField
+                    id="outlined-multiline-static"
+                    label="Description"
+                    multiline
+                    rows={4}
+                    placeholder="description"
+                    onChange={(e) => {
+                      setCourseDescription(e.target.value);
+                    }}
+                    style={{
+                      width: "75vw",
+                    }}
+                  />
+                </div>
+
+                <TextField
+                  id="duration"
+                  label="Duration"
+                  variant="outlined"
+                  fullWidth
+                  onChange={(e) => {
+                    setCourseDuration(e.target.value);
+                  }}
+                />
+              </Box>
+            </div>
+            <div
+              className="d-flex justify-content-center align-items-center p-2"
+              sx={{ flexDirection: "row" }}
+            >
+              <Box sx={{ "& > :not(style)": { m: 1 } }}>
+                <label htmlFor="contained-button-file">
+                  <Input
+                    accept="video/*"
+                    id="contained-button-file"
+                    multiple
+                    type="file"
+                    onChange={(e) => {
+                      setInputFile(e.target.files[0]);
+                      console.log(e.target.files[0]);
+                    }}
+                  />
+                  <Button variant="contained" component="span">
+                    Attach file
+                  </Button>
+                </label>
+                <label htmlFor="contained-button-file">
+                  <Input
+                    accept="video/*"
+                    id="contained-button-file"
+                    multiple
+                    type="file"
+                    onChange={(event) => {
+                      setImageFile(event.target.files[0]);
+                      console.log(event.target.files[0]);
+                    }}
+                  />
+                  <Button variant="contained" component="span">
+                    Upload Banner Image
+                  </Button>
+                </label>
+                <Button
+                  variant="contained"
+                  component="span"
+                  onClick={(e) => {
+                    upload();
+                  }}
+                >
+                  Submit
+                </Button>
+              </Box>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
     // <section className="d-flex flex-column align-items-center justify-content-center vh-100">
     //   <div
     //     className="bg-white align-items-center justify-content-center h-75  p-4"

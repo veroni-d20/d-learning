@@ -85,8 +85,8 @@ export default function Upload() {
       className="d-flex flex-column align-items-center justify-content-center vh-100"
       style={{
         background: `url("${bg}")no-repeat center/cover`,
-          // minHeight: "200vh",
-          // width: "100%",
+        // minHeight: "200vh",
+        // width: "100%",
       }}
     >
       <div
@@ -107,6 +107,16 @@ export default function Upload() {
               }}
             >
               Get Courses
+            </Button>
+            <Typography component="h2" variant="h5">
+              |
+            </Typography>
+            <Button
+              onClick={(e) => {
+                navigate("/score");
+              }}
+            >
+              Score
             </Button>
             <Typography component="h2" variant="h5">
               |
@@ -183,18 +193,20 @@ export default function Upload() {
                     type="file"
                     onChange={(event) => setInputFile(event.target.files[0])}
                   />
-                  <Button variant="contained"
-                  sx={{
-                    borderRadius: "30px",
-                    backgroundColor: "#3b82f6",
-                    maxHeight: "50px",
-                    minHeight: "30px",
-                    "&:hover": {
-                      backgroundColor: "#fff",
-                      color: "#3b82f6",
-                    },
-                  }}
-                  component="span">
+                  <Button
+                    variant="contained"
+                    sx={{
+                      borderRadius: "30px",
+                      backgroundColor: "#3b82f6",
+                      maxHeight: "50px",
+                      minHeight: "30px",
+                      "&:hover": {
+                        backgroundColor: "#fff",
+                        color: "#3b82f6",
+                      },
+                    }}
+                    component="span"
+                  >
                     Attach file
                   </Button>
                 </label>
