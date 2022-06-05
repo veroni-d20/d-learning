@@ -25,8 +25,35 @@ export default function Retrieve() {
     navigate("/");
   };
 
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleClickOpen = async (id) => {
+    // const userObject = new Moralis.Object.extend("_User");
+    // jobApplication.equalTo(
+    //   "ethAddress",
+    //   "0x4a187a5a7d3cfa0f6e8e22295ef8b2404e77b556"
+    // );Z
+    // const userObject = Moralis.Object.extend("_User");
+    // const user = new userObject();
+
+    // user.add("courseId", id);
+    // await user
+    //   .save()
+    //   .then(() => {
+    //     setOpen(true);
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   });
+    // setOpen(true);
+
+    console.log(id);
+    const query = new Moralis.Query("CourseDetails");
+    const data = query.equalTo("objectId", id);
+    console.log(data);
+
+    const user = Moralis.User.current();
+    user.set("courseID", data);
+    user.save();
+    console.log(user);
   };
 
   const handleClose = () => {
@@ -34,7 +61,6 @@ export default function Retrieve() {
     navigate("/Mycourses");
   };
   const { Moralis, isInitialized } = useMoralis();
-  const Data = [];
 
   async function fetchIPFSDoc(ipfsHash) {
     const url = `https://gateway.moralisipfs.com/ipfs/${ipfsHash}`;
@@ -145,11 +171,12 @@ export default function Retrieve() {
                         size="small"
                         color="primary"
                         onClick={() => {
-                          navigate("/addLessons", {
-                            state: {
-                              courseId: e.objectId,
-                            },
-                          });
+                          handleClickOpen(e.objectId);
+                          // navigate("/addLessons", {
+                          //   state: {
+                          //     courseId: e.objectId,
+                          //   },
+                          // });
                         }}
                       >
                         Enroll Course
