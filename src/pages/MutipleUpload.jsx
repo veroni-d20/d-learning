@@ -26,7 +26,7 @@ export default function MutipleUpload() {
   };
 
   //Uploading the course
-  const uploadFile = async () => {
+  const uploadFile = async (inputFile, imageFile) => {
     console.log(inputFile);
     console.log(imageFile);
     const file = new Moralis.File(inputFile.name, inputFile);
@@ -57,8 +57,8 @@ export default function MutipleUpload() {
   };
 
   //Upload function
-  const upload = async () => {
-    const { fileUrl, imageUrl } = await uploadFile();
+  const upload = async (inputFile, imageFile) => {
+    const { fileUrl, imageUrl } = await uploadFile(inputFile, imageFile);
     const metaUrl = await uploadMetadata(fileUrl, imageUrl);
     // Save file reference to Moralis
     const jobApplication = new Moralis.Object("LessonDetail");
@@ -162,7 +162,7 @@ export default function MutipleUpload() {
           </label>
           <Button
             onClick={(e) => {
-              upload();
+              upload(inputFile, imageFile);
             }}
           >
             Submit
