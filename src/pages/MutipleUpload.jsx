@@ -3,6 +3,8 @@ import { Button, Typography, TextField } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useMoralis } from "react-moralis";
 import { styled } from "@mui/material/styles";
+import bg from "../images/bg.png";
+import Box from "@mui/material/Box";
 
 const Input = styled("input")({
   display: "none",
@@ -72,9 +74,14 @@ export default function MutipleUpload() {
   };
 
   return (
-    <section className="d-flex flex-column align-items-center justify-content-center vh-100">
+    <section
+      className="d-flex flex-column align-items-center justify-content-center vh-100"
+      style={{
+        background: `url("${bg}")no-repeat center/cover`,
+      }}
+    >
       <div
-        className="bg-white align-items-center justify-content-center h-75  p-4"
+        className="bg-white align-items-center justify-content-center h-75"
         style={{
           minHeight: "85vh",
           width: "85%",
@@ -83,92 +90,234 @@ export default function MutipleUpload() {
             "0 8px 16px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.16)",
         }}
       >
-        <div className="d-flex justify-content-end ">
-          <Button
-            onClick={(e) => {
-              navigate("/getCourses");
-            }}
-          >
-            All Courses
-          </Button>
-          <Typography component="h2" variant="h5">
-            |
-          </Typography>
-          <Button onClick={logout}>Logout</Button>
-        </div>
-        <div className="mb-2">
-          <TextField
-            id="lesson-name"
-            label="Lesson Name"
-            variant="outlined"
-            fullWidth
-            onChange={(e) => {
-              setLessonName(e.target.value);
-            }}
-          />
-        </div>
-        <div className="mb-2">
-          <TextField
-            id="duration"
-            label="Duration"
-            variant="outlined"
-            fullWidth
-            onChange={(e) => {
-              setCourseDuration(e.target.value);
-            }}
-          />
-        </div>
-        <div className="mb-2">
-          <TextField
-            id="description"
-            label="Description"
-            variant="outlined"
-            fullWidth
-            onChange={(e) => {
-              setCourseDescription(e.target.value);
-            }}
-          />
-        </div>
-        <div>
-          <label htmlFor="contained-button-file">
-            <Input
-              accept="video/*"
-              id="contained-button-file"
-              multiple
-              type="file"
-              onChange={(e) => {
-                setInputFile(e.target.files[0]);
-                console.log(e.target.files[0]);
+        <div className="container my-4">
+          <div className="d-flex justify-content-end">
+            <Button
+              onClick={(e) => {
+                navigate("/getCourses");
               }}
-            />
-            <Button variant="contained" component="span" sx={{ margin: "2px" }}>
-              Upload Video
+            >
+              Get Courses
             </Button>
-          </label>
-          <label htmlFor="contained-button-image">
-            <Input
-              accept="image/*"
-              id="contained-button-image"
-              multiple
-              type="file"
-              onChange={(event) => {
-                setImageFile(event.target.files[0]);
-                console.log(event.target.files[0]);
+            <Typography component="h2" variant="h5">
+              |
+            </Typography>
+            <Button
+              onClick={(e) => {
+                navigate("/score");
               }}
-            />
-            <Button variant="contained" component="span">
-              Upload Banner Image
+            >
+              Score
             </Button>
-          </label>
-          <Button
-            onClick={(e) => {
-              upload(inputFile, imageFile);
-            }}
-          >
-            Submit
-          </Button>
+            <Typography component="h2" variant="h5">
+              |
+            </Typography>
+            <Button onClick={logout}>Logout</Button>
+          </div>
+
+          <div className="text-center">
+            <b>
+              <h3>Add Lessons</h3>
+            </b>
+            <Typography component="h1" variant="h6">
+              Add your lessons & topics here!
+            </Typography>
+          </div>
+
+          <div className="d-flex justify-content-center flex-column container">
+            <div className="d-flex justify-content-center p-2">
+              <Box
+                sx={{
+                  "& > :not(style)": { m: 1 },
+                  letterSpacing: 15,
+                  m: 1,
+                }}
+              >
+                <div className="my-1 py-2 ">
+                  <TextField
+                    id="lesson-name"
+                    label="Lesson Name"
+                    variant="outlined"
+                    fullWidth
+                    onChange={(e) => {
+                      setLessonName(e.target.value);
+                    }}
+                  />
+                </div>
+                <div className="my-1 py-2">
+                  <TextField
+                    id="outlined-multiline-static"
+                    label="Description"
+                    multiline
+                    rows={4}
+                    placeholder="description"
+                    onChange={(e) => {
+                      setCourseDescription(e.target.value);
+                    }}
+                    style={{
+                      width: "75vw",
+                    }}
+                  />
+                </div>
+
+                <TextField
+                  id="duration"
+                  label="Duration"
+                  variant="outlined"
+                  fullWidth
+                  onChange={(e) => {
+                    setCourseDuration(e.target.value);
+                  }}
+                />
+              </Box>
+            </div>
+            <div
+              className="d-flex justify-content-center align-items-center p-2"
+              sx={{ flexDirection: "row" }}
+            >
+              <Box sx={{ "& > :not(style)": { m: 1 } }}>
+                <label htmlFor="contained-button-file">
+                  <Input
+                    accept="video/*"
+                    id="contained-button-file"
+                    multiple
+                    type="file"
+                    onChange={(e) => {
+                      setInputFile(e.target.files[0]);
+                      console.log(e.target.files[0]);
+                    }}
+                  />
+                  <Button variant="contained" component="span">
+                    Attach file
+                  </Button>
+                </label>
+                <label htmlFor="contained-button-file">
+                  <Input
+                    accept="video/*"
+                    id="contained-button-file"
+                    multiple
+                    type="file"
+                    onChange={(event) => {
+                      setImageFile(event.target.files[0]);
+                      console.log(event.target.files[0]);
+                    }}
+                  />
+                  <Button variant="contained" component="span">
+                    Upload Banner Image
+                  </Button>
+                </label>
+                <Button
+                  variant="contained"
+                  component="span"
+                  onClick={(e) => {
+                    upload();
+                  }}
+                >
+                  Submit
+                </Button>
+              </Box>
+            </div>
+          </div>
         </div>
       </div>
     </section>
+    // <section className="d-flex flex-column align-items-center justify-content-center vh-100">
+    //   <div
+    //     className="bg-white align-items-center justify-content-center h-75  p-4"
+    //     style={{
+    //       minHeight: "85vh",
+    //       width: "85%",
+    //       borderRadius: "10px",
+    //       boxShadow:
+    //         "0 8px 16px 0 rgba(0, 0, 0, 0.15), 0 6px 20px 0 rgba(0, 0, 0, 0.16)",
+    //     }}
+    //   >
+    //     <div className="d-flex justify-content-end ">
+    //       <Button
+    //         onClick={(e) => {
+    //           navigate("/getCourses");
+    //         }}
+    //       >
+    //         All Courses
+    //       </Button>
+    //       <Typography component="h2" variant="h5">
+    //         |
+    //       </Typography>
+    //       <Button onClick={logout}>Logout</Button>
+    //     </div>
+    //     <div className="mb-2">
+    //       <TextField
+    //         id="lesson-name"
+    //         label="Lesson Name"
+    //         variant="outlined"
+    //         fullWidth
+    //         onChange={(e) => {
+    //           setLessonName(e.target.value);
+    //         }}
+    //       />
+    //     </div>
+    //     <div className="mb-2">
+    //       <TextField
+    //         id="duration"
+    //         label="Duration"
+    //         variant="outlined"
+    //         fullWidth
+    //         onChange={(e) => {
+    //           setCourseDuration(e.target.value);
+    //         }}
+    //       />
+    //     </div>
+    //     <div className="mb-2">
+    //       <TextField
+    //         id="description"
+    //         label="Description"
+    //         variant="outlined"
+    //         fullWidth
+    //         onChange={(e) => {
+    //           setCourseDescription(e.target.value);
+    //         }}
+    //       />
+    //     </div>
+    //     <div>
+    //       <label htmlFor="contained-button-file">
+    //         <Input
+    //           accept="video/*"
+    //           id="contained-button-file"
+    //           multiple
+    //           type="file"
+    //           onChange={(e) => {
+    //             setInputFile(e.target.files[0]);
+    //             console.log(e.target.files[0]);
+    //           }}
+    //         />
+    //         <Button variant="contained" component="span" sx={{ margin: "2px" }}>
+    //           Upload Video
+    //         </Button>
+    //       </label>
+    //       <label htmlFor="contained-button-image">
+    //         <Input
+    //           accept="image/*"
+    //           id="contained-button-image"
+    //           multiple
+    //           type="file"
+    //           onChange={(event) => {
+    //             setImageFile(event.target.files[0]);
+    //             console.log(event.target.files[0]);
+    //           }}
+    //         />
+    //         <Button variant="contained" component="span">
+    //           Upload Banner Image
+    //         </Button>
+    //       </label>
+    //       <Button
+    //         onClick={(e) => {
+    //           upload();
+    //         }}
+    //       >
+    //         Submit
+    //       </Button>
+    //     </div>
+    //   </div>
+    // </section>
   );
 }
