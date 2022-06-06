@@ -21,7 +21,7 @@ export default function Upload() {
   const [courseName, setCourseName] = useState("");
   const [courseDescription, setCourseDescription] = useState("");
   const [courseDuration, setCourseDuration] = useState("");
-  const { Moralis, authenticate, isAuthenticated } = useMoralis();
+  const { Moralis, authenticate, isAuthenticated, logout } = useMoralis();
   let navigate = useNavigate();
 
   //Authentication
@@ -37,9 +37,9 @@ export default function Upload() {
     }
   };
 
-  const logout = async () => {
-    Moralis.User.logOut();
-    console.log("logged out");
+  const logoutFn = async () => {
+    await logout();
+    window.localStorage.removeItem("connectorId");
     navigate("/");
   };
 
@@ -121,7 +121,7 @@ export default function Upload() {
             <Typography component="h2" variant="h5">
               |
             </Typography>
-            <Button onClick={logout}>Logout</Button>
+            <Button onClick={() => logoutFn()}>Logout</Button>
           </div>
 
           <div className="text-center">

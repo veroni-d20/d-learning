@@ -1,23 +1,18 @@
-import { useState } from "react";
-import { Button, Typography, TextField } from "@mui/material";
-import { useNavigate, useLocation } from "react-router-dom";
+// import { useState } from "react";
+import { Button, Typography } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 import { useMoralis } from "react-moralis";
-import { styled } from "@mui/material/styles";
 import bg from "../images/bg.png";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
 
-const Input = styled("input")({
-  display: "none",
-});
-
 export default function Score() {
   let navigate = useNavigate();
-  const { Moralis, authenticate, isAuthenticated } = useMoralis();
+  const { logout } = useMoralis();
 
-  const logout = async () => {
-    Moralis.User.logOut();
-    console.log("logged out");
+  const logoutFn = async () => {
+    await logout();
+    window.localStorage.removeItem("connectorId");
     navigate("/");
   };
 
@@ -60,7 +55,7 @@ export default function Score() {
             <Typography component="h2" variant="h5">
               |
             </Typography>
-            <Button onClick={logout}>Logout</Button>
+            <Button onClick={() => logoutFn}>Logout</Button>
           </div>
 
           <div className="text-center">

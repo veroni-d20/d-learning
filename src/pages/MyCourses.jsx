@@ -14,10 +14,10 @@ import { useMoralis } from "react-moralis";
 
 export default function MyCourses() {
   let navigate = useNavigate();
-  const { Moralis } = useMoralis();
-  const logout = async () => {
-    Moralis.User.logOut();
-    console.log("logged out");
+  const { Moralis, logout } = useMoralis();
+  const logoutFn = async () => {
+    await logout();
+    window.localStorage.removeItem("connectorId");
     navigate("/");
   };
   return (
@@ -48,7 +48,7 @@ export default function MyCourses() {
           <Typography component="h2" variant="h5">
             |
           </Typography>
-          <Button onClick={logout}>Logout</Button>
+          <Button onClick={() => logoutFn()}>Logout</Button>
         </div>
         <h3 className="text-center">My Courses</h3>
         <div className="row">

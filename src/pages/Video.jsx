@@ -7,12 +7,12 @@ import bg from "../images/bg.png";
 import video from "../images/agile.mp4";
 
 export default function Video() {
-  const { Moralis } = useMoralis();
+  const { Moralis, logout } = useMoralis();
   let navigate = useNavigate();
 
-  const logout = async () => {
-    Moralis.User.logOut();
-    console.log("logged out");
+  const logoutFn = async () => {
+    await logout();
+    window.localStorage.removeItem("connectorId");
     navigate("/");
   };
   return (
@@ -45,7 +45,7 @@ export default function Video() {
               <Typography component="h2" variant="h5">
                 |
               </Typography>
-              <Button onClick={logout}>Logout</Button>
+              <Button onClick={() => logout()}>Logout</Button>
             </div>
             <h3 className="m-0">Agile Methodology</h3>
             <hr></hr>

@@ -3,6 +3,9 @@ import { Button, Typography, TextField } from "@mui/material";
 import { useNavigate, useLocation } from "react-router-dom";
 import { useMoralis } from "react-moralis";
 import { styled } from "@mui/material/styles";
+import { CgAdd } from "react-icons/cg";
+import { MdOutlineCancel } from "react-icons/md";
+import IconButton from "@mui/material/IconButton";
 import bg from "../images/bg.png";
 import Box from "@mui/material/Box";
 
@@ -14,21 +17,31 @@ export default function MutipleUpload() {
   let navigate = useNavigate();
   const { state } = useLocation();
   const { courseId } = state;
+  const [inputField, setInputField] = useState([
+    {
+      lessonName: "",
+      courseDescription: "",
+      courseDuration: "",
+      inputField: "",
+      imageFile: "",
+    },
+  ]);
+
   const [inputFile, setInputFile] = useState(null);
   const [imageFile, setImageFile] = useState(null);
   const [lessonName, setLessonName] = useState("");
   const [courseDescription, setCourseDescription] = useState("");
   const [courseDuration, setCourseDuration] = useState("");
-  const { Moralis } = useMoralis();
+  const { Moralis, logout } = useMoralis();
 
-  const logout = async () => {
-    Moralis.User.logOut();
-    console.log("logged out");
+  const logoutFn = async () => {
+    await logout();
+    window.localStorage.removeItem("connectorId");
     navigate("/");
   };
 
   //Uploading the course
-  const uploadFile = async (inputFile, imageFile) => {
+  const uploadFile = async () => {
     console.log(inputFile);
     console.log(imageFile);
     const file = new Moralis.File(inputFile.name, inputFile);
@@ -59,8 +72,8 @@ export default function MutipleUpload() {
   };
 
   //Upload function
-  const upload = async (inputFile, imageFile) => {
-    const { fileUrl, imageUrl } = await uploadFile(inputFile, imageFile);
+  const upload = async () => {
+    const { fileUrl, imageUrl } = await uploadFile();
     const metaUrl = await uploadMetadata(fileUrl, imageUrl);
     // Save file reference to Moralis
     const jobApplication = new Moralis.Object("LessonDetail");
@@ -112,7 +125,7 @@ export default function MutipleUpload() {
             <Typography component="h2" variant="h5">
               |
             </Typography>
-            <Button onClick={logout}>Logout</Button>
+            <Button onClick={() => logoutFn()}>Logout</Button>
           </div>
 
           <div className="text-center">

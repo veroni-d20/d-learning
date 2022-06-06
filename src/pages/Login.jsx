@@ -97,7 +97,18 @@ export default function Login() {
                 type="submit"
                 fullWidth
                 variant="contained"
-                onClick={login}
+                onClick={async () => {
+                  try {
+                    await authenticate({ provider: "injected" }).then(
+                      (result) => {
+                        navigate("/upload");
+                      }
+                    );
+                    window.localStorage.setItem("connectorId", "injected");
+                  } catch (e) {
+                    console.error(e);
+                  }
+                }}
                 sx={{
                   mt: 3,
                   mb: 2,

@@ -19,9 +19,9 @@ export default function Retrieve() {
   const [data, setData] = useState([]);
   let navigate = useNavigate();
 
-  const logout = async () => {
-    Moralis.User.logOut();
-    console.log("logged out");
+  const logoutFn = async () => {
+    await logout();
+    window.localStorage.removeItem("connectorId");
     navigate("/");
   };
 
@@ -60,7 +60,7 @@ export default function Retrieve() {
     setOpen(false);
     navigate("/Mycourses");
   };
-  const { Moralis, isInitialized } = useMoralis();
+  const { Moralis, isInitialized, logout } = useMoralis();
 
   async function fetchIPFSDoc(ipfsHash) {
     const url = `https://gateway.moralisipfs.com/ipfs/${ipfsHash}`;
@@ -135,7 +135,7 @@ export default function Retrieve() {
           <Typography component="h2" variant="h5">
             |
           </Typography>
-          <Button onClick={logout}>Logout</Button>
+          <Button onClick={() => logout()}>Logout</Button>
         </div>
         <h3 className="text-center pb-2">Courses</h3>
 
@@ -144,7 +144,7 @@ export default function Retrieve() {
         ) : (
           <>
             <div className="row">
-              {data.map((e, index) => (
+              {dummyData.map((e, index) => (
                 <div className="col-md-6 col-lg-4 mb-3" key={e.objectId}>
                   <Card
                     sx={{
